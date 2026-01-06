@@ -1,0 +1,4 @@
+/mnt/c/Users/Filip/CLionProjects/Snake/build/CMakeFiles/server.dir
+/mnt/c/Users/Filip/CLionProjects/Snake/build/CMakeFiles/client.dir
+/mnt/c/Users/Filip/CLionProjects/Snake/build/CMakeFiles/edit_cache.dir
+/mnt/c/Users/Filip/CLionProjects/Snake/build/CMakeFiles/rebuild_cache.dir
