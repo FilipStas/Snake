@@ -122,7 +122,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=Snake
+CMAKE_PROJECT_NAME:STATIC=SnakeGame
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
@@ -190,13 +190,13 @@ CMAKE_TAPI:FILEPATH=CMAKE_TAPI-NOTFOUND
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
 //Value Computed by CMake
-Snake_BINARY_DIR:STATIC=/mnt/c/Users/Filip/CLionProjects/Snake/build
+SnakeGame_BINARY_DIR:STATIC=/mnt/c/Users/Filip/CLionProjects/Snake/build
 
 //Value Computed by CMake
-Snake_IS_TOP_LEVEL:STATIC=ON
+SnakeGame_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
-Snake_SOURCE_DIR:STATIC=/mnt/c/Users/Filip/CLionProjects/Snake
+SnakeGame_SOURCE_DIR:STATIC=/mnt/c/Users/Filip/CLionProjects/Snake
 
 
 ########################

@@ -7,14 +7,18 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <arpa/inet.h>
+#include <string.h>
+#include "world.h"
 
 #define PORT 5555
+#define MENU_MESS "Welcome to the server!\n new Game [new], Dissconnect [quit], Connect to game [con], Info [info] \n"
 
 void* client_thread(void* arg) {
     int client_socket = *(int*)arg;
     free(arg);
 
     char buffer[256];
+    send(client_socket, MENU_MESS, strlen(MENU_MESS), 0);
 
     while (1) {
         ssize_t len = recv(client_socket, buffer, sizeof(buffer) - 1, 0);
@@ -22,9 +26,20 @@ void* client_thread(void* arg) {
             printf("Client disconnected.\n");
             break;
         }
-
         buffer[len] = '\0';
+        buffer[strcspn(buffer, "\r\n")] = 0;
+
         printf("Client says: %s\n", buffer);
+        if (strcmp(buffer, "AHOJ") == 0) {
+            printf("Client said hello.\n");
+        }else if (strcmp(buffer, "new") ==0) {
+            printf("Starting a new game...\n");
+            fill_board();
+            create_food();
+            char* board_to_send = return_board();
+            send(client_socket, board_to_send, strlen(board_to_send), 0);
+            free(board_to_send);
+        }
 
         // echo back
         send(client_socket, buffer, strlen(buffer), 0);

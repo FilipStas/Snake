@@ -190,6 +190,60 @@ server.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/server.c.s
 .PHONY : server.c.s
 
+snake.o: snake.c.o
+.PHONY : snake.o
+
+# target to build an object file
+snake.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/snake.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/snake.c.o
+.PHONY : snake.c.o
+
+snake.i: snake.c.i
+.PHONY : snake.i
+
+# target to preprocess a source file
+snake.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/snake.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/snake.c.i
+.PHONY : snake.c.i
+
+snake.s: snake.c.s
+.PHONY : snake.s
+
+# target to generate assembly for a file
+snake.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/snake.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/snake.c.s
+.PHONY : snake.c.s
+
+world.o: world.c.o
+.PHONY : world.o
+
+# target to build an object file
+world.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/world.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/world.c.o
+.PHONY : world.c.o
+
+world.i: world.c.i
+.PHONY : world.i
+
+# target to preprocess a source file
+world.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/world.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/world.c.i
+.PHONY : world.c.i
+
+world.s: world.c.s
+.PHONY : world.s
+
+# target to generate assembly for a file
+world.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/world.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/world.c.s
+.PHONY : world.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -206,6 +260,12 @@ help:
 	@echo "... server.o"
 	@echo "... server.i"
 	@echo "... server.s"
+	@echo "... snake.o"
+	@echo "... snake.i"
+	@echo "... snake.s"
+	@echo "... world.o"
+	@echo "... world.i"
+	@echo "... world.s"
 .PHONY : help
 
 

@@ -1,1 +1,1 @@
-/usr/bin/cc CMakeFiles/client.dir/client.c.o -o client 
+/usr/bin/cc CMakeFiles/client.dir/client.c.o CMakeFiles/client.dir/snake.c.o CMakeFiles/client.dir/world.c.o -o client 

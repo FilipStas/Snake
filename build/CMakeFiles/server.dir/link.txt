@@ -1,1 +1,1 @@
-/usr/bin/cc CMakeFiles/server.dir/server.c.o -o server 
+/usr/bin/cc CMakeFiles/server.dir/server.c.o CMakeFiles/server.dir/snake.c.o CMakeFiles/server.dir/world.c.o -o server 

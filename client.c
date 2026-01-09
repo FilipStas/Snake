@@ -14,15 +14,12 @@ int sock;
 
 void* receive_thread(void* arg) {
     char buffer[256];
-
     while (1) {
         ssize_t len = recv(sock, buffer, sizeof(buffer) - 1, 0);
-        if (len <= 0) break;
-
+        if (len <= 0) return NULL;
         buffer[len] = '\0';
-        printf("Server: %s\n", buffer);
+        printf("%s\n", buffer);
     }
-
     return NULL;
 }
 
@@ -45,12 +42,18 @@ void run_client() {
 
     while (1) {
         fgets(msg, sizeof(msg), stdin);
+        //msg[strcspn(msg, "\r\n")] = 0; // odstráni \n
+
+        if (strcmp(msg, "quit\n") == 0) {
+            printf("Exiting client...\n");
+            close(sock);  // zatvoríme socket → receive_thread skončí
+            break;        // opustí while loop
+        }
+
         send(sock, msg, strlen(msg), 0);
     }
-
-    close(sock);
+    exit(0);
 }
-
 int main() {
     run_client();
     return 0;
