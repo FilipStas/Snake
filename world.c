@@ -1,56 +1,113 @@
 #include "world.h"
-#include "snake.h"
+#include <string.h>
+#include <stdlib.h>
+#include <time.h>
 
-typedef struct { int x, y; } Point;
-
-char board[BOARD_WIDTH][BOARD_HEIGHT];
-
-static Point food;
-
-void add_Snake_to_board(int x, int y) {
-
-}
-
-void fill_board() {
-    int x,y;
-    for (x = 0; x < BOARD_WIDTH; x++) {
-        for (y = 0; y < BOARD_HEIGHT; y++) {
-            if (x==0||x==BOARD_WIDTH-1||y==0||y==BOARD_HEIGHT-1) {
-                board[x][y] = '#';
-            } else {
-                board[x][y] = ' ';
-            }
-        }
-    }
-}
-void create_food() {
-    srand(time(NULL));
-    food.x = rand() % (BOARD_WIDTH - 2) + 1;
-    food.y = rand() % (BOARD_HEIGHT - 2) + 1;
-    board[food.x][food.y] = '$';
-}
-
-char* return_board() {
-    int x, y;
-    // dostatočne veľký buffer: každý znak + nový riadok + '\0'
-    char* board_str = malloc((BOARD_WIDTH + 1) * BOARD_HEIGHT + 1);
-    if (!board_str) return NULL;
-
-    int pos = 0;
-    for (y = 0; y < BOARD_HEIGHT; y++) {         // riadok po riadku
-        for (x = 0; x < BOARD_WIDTH; x++) {
-            board_str[pos++] = board[x][y];
-        }
-        board_str[pos++] = '\n';                 // nový riadok
-    }
-    board_str[pos] = '\0';                       // ukončovací znak
-
-    return board_str;
-}
-/*
-int main(int argc, char *argv[]) {
-    fill_board();
-    print_board();
+static int pos_equal(const Pos *p1, const Pos *p2) {
+    if (p1->x == p2->x && p1->y == p2->y)
+        return 1;
     return 0;
 }
-*/
+
+static int hit_pos(const World *world, const Pos *pos) {
+    for (int i = 0; i < world->len; i++) {
+        if (pos_equal(&world->snake[i], pos))
+            return 1;
+    }
+    return 0;
+}
+
+static void place_fruit(World *world) {
+    Pos p;
+
+    for (int i = 0; i < 10000; i++) {
+        p.x = rand() % WIDTH;
+        p.y = rand() % HEIGHT;
+
+        if (!hit_pos(world, &p)) {
+            world->fruit = p;
+            return;
+        }
+    }
+
+    world->fruit.x = -1;
+    world->fruit.y = -1;
+}
+
+void world_init(World *world) {
+    memset(world, 0, sizeof(World));
+
+    srand(time(NULL));
+
+    world->len = 3;
+    world->score = 0;
+    world->game_over = 0;
+
+    int cx = WIDTH / 2;
+    int cy = HEIGHT / 2;
+
+    world->snake[0].x = cx;
+    world->snake[0].y = cy;
+
+    world->snake[1].x = cx - 1;
+    world->snake[1].y = cy;
+
+    world->snake[2].x = cx - 2;
+    world->snake[2].y = cy;
+
+    world->dir = 'R';
+    world->next_dir = 'R';
+
+    place_fruit(world);
+}
+
+void world_set_direction(World *world, char dir) {
+    if ((dir == 'U' && world->dir == 'D') ||
+        (dir == 'D' && world->dir == 'U') ||
+        (dir == 'L' && world->dir == 'R') ||
+        (dir == 'R' && world->dir == 'L')) return;
+    world->next_dir = dir;
+}
+
+void world_tick(World *world) {
+    if (world->game_over)
+        return;
+
+    world->dir = world->next_dir;
+
+    Pos head = world->snake[0];
+
+    if (world->dir == 'U') head.y--;
+    else if (world->dir == 'D') head.y++;
+    else if (world->dir == 'L') head.x--;
+    else if (world->dir == 'R') head.x++;
+
+    if (head.x < 0 || head.x >= WIDTH ||
+        head.y < 0 || head.y >= HEIGHT) {
+        world->game_over = 1;
+        return;
+        }
+
+    if (hit_pos(world, &head)) {
+        world->game_over = 1;
+        return;
+    }
+
+    for (int i = world->len; i > 0; i--) {
+        world->snake[i] = world->snake[i - 1];
+    }
+
+    world->snake[0] = head;
+
+    if (pos_equal(&head, &world->fruit)) {
+        if (world->len < WORLD_MAX)
+            world->len++;
+
+        world->score++;
+        place_fruit(world);
+    }
+}
+
+int world_is_game_over(const World *world) {
+    return world->game_over;
+}

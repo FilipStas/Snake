@@ -1,23 +1,25 @@
-//
-// Created by Filip on 9. 1. 2026.
-//
+#ifndef WORLD_H
+#define WORLD_H
 
-#ifndef SNAKE_SNAKE_H
-#define SNAKE_SNAKE_H
+#define WIDTH 20
+#define HEIGHT 15
+#define WORLD_MAX (WIDTH * HEIGHT)
 
-#define BOARD_WIDTH 20
-#define BOARD_HEIGHT 20
+typedef struct { int x, y; } Pos;
 
-#include <stdio.h>
+typedef struct {
+    Pos snake[WORLD_MAX];
+    int len;
+    char dir;       // 'U' 'D' 'L' 'R'
+    char next_dir;
+    Pos fruit;
+    int score;
+    int game_over;  // 0 running, 1 over
+} World;
 
-#include <stdlib.h>
-#include <time.h>
-#include <string.h>
+void world_init(World *world);
+void world_set_direction(World *world, char dir);
+void world_tick(World *world);
+int world_is_game_over(const World *world);
 
-void fill_board();
-void create_food();
-void add_Snake_to_board(int x, int y);
-
-char* return_board();
-
-#endif //SNAKE_SNAKE_H
+#endif

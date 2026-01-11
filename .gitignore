@@ -1,0 +1,26 @@
+# Build directories
+/build/
+/cmake-build-debug/
+/build/bin/
+/build/CMakeFiles/
+/cmake-build-debug/CMakeFiles/
+
+# CMake cache files
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+*.cmake
+
+# IDE files
+/.idea/
+*.iml
+cmake-build-debug/.idea/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Logs and temporary files
+*.log
+*.tmp
+*.swp
